@@ -9,7 +9,7 @@ public class Principal {
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in); 
-
+        
         List<String> nomes = new ArrayList<>();
         List<String> celulares = new ArrayList<>();
         List<String> emails = new ArrayList<>();
@@ -18,7 +18,7 @@ public class Principal {
         
         System.out.println("==========================");
         System.out.println("     AGENDA DE CONTATOS    ");
-        System.out.println("          v0.2.0           ");
+        System.out.println("          v0.3.0           "); 
         System.out.println("==========================");
         System.out.println("Bem-vindo!");
 
@@ -28,12 +28,13 @@ public class Principal {
             System.out.println("2 - Listar contatos");
             System.out.println("3 - Procurar contato");
             System.out.println("4 - Excluir contato");
-            System.out.println("5 - Sair");
+            System.out.println("5 - Atualizar contato"); 
+            System.out.println("6 - Sair");
             System.out.println();
 
             System.out.print("Escolha uma opção: ");
             int opcao = sc.nextInt();
-            sc.nextLine();
+            sc.nextLine(); 
 
             switch (opcao) {
                 case 1 -> {
@@ -53,13 +54,11 @@ public class Principal {
                 case 2 -> {
                     System.out.println("\n--- LISTAR CONTATOS ---");
                     
-                 
                     if (nomes.isEmpty()) { 
                         System.out.println("Nenhum contato encontrado!");
                     } else {
                         for (int i = 0; i < nomes.size(); i++) {
                             System.out.println("\nContato " + (i + 1));
-                           
                             System.out.println("Nome: " + nomes.get(i));
                             System.out.println("Celular: " + celulares.get(i));
                             System.out.println("E-mail: " + emails.get(i));
@@ -99,7 +98,6 @@ public class Principal {
                         String nomeExcluir = sc.nextLine();
                         int indiceExcluir = -1;
                         
-
                         for (int i = 0; i < nomes.size(); i++) {
                             if (nomes.get(i).equalsIgnoreCase(nomeExcluir)) {
                                 indiceExcluir = i;
@@ -110,7 +108,6 @@ public class Principal {
                         if (indiceExcluir == -1) {
                             System.out.println("Contato não encontrado.");
                         } else {
-                            
                             nomes.remove(indiceExcluir);
                             celulares.remove(indiceExcluir);
                             emails.remove(indiceExcluir);
@@ -120,11 +117,55 @@ public class Principal {
                     }
                 }
                 case 5 -> {
+                    System.out.println("\n--- ATUALIZAR CONTATO ---");
+                    if (nomes.isEmpty()) {
+                        System.out.println("Nenhum contato cadastrado.");
+                    } else {
+                        System.out.print("Digite o nome do contato que deseja atualizar: ");
+                        String nomeAtualizar = sc.nextLine();
+                        int indiceAtualizar = -1;
+
+                        for (int i = 0; i < nomes.size(); i++) {
+                            if (nomes.get(i).equalsIgnoreCase(nomeAtualizar)) {
+                                indiceAtualizar = i;
+                                break;
+                            }
+                        }
+
+                        if (indiceAtualizar == -1) {
+                            System.out.println("Contato não encontrado.");
+                        } else {
+
+                            System.out.println("\nContato encontrado! Deixe em branco para NÃO alterar o campo.");
+                            
+                            System.out.print("Novo Nome [" + nomes.get(indiceAtualizar) + "]: ");
+                            String novoNome = sc.nextLine();
+                            if (!novoNome.trim().isEmpty()) {
+                                nomes.set(indiceAtualizar, novoNome);
+                            }
+
+                            System.out.print("Novo Celular [" + celulares.get(indiceAtualizar) + "]: ");
+                            String novoCelular = sc.nextLine();
+                            if (!novoCelular.trim().isEmpty()) {
+                                celulares.set(indiceAtualizar, novoCelular);
+                            }
+
+                            System.out.print("Novo E-mail [" + emails.get(indiceAtualizar) + "]: ");
+                            String novoEmail = sc.nextLine();
+                            if (!novoEmail.trim().isEmpty()) {
+                                emails.set(indiceAtualizar, novoEmail);
+                            }
+
+                            System.out.println("Contato atualizado com sucesso!");
+                        }
+                    }
+                }
+                case 6 -> {
                     System.out.println("Saindo...");
                     continuar = false;
                 }
                 default -> System.out.println("Opção inválida!");
-            } // switch
-        } // while
-    } // main
+            } 
+        } 
+    } 
 }
